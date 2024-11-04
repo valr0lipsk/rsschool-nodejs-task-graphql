@@ -29,10 +29,9 @@ export const Profile = new GraphQLObjectType({
   },
 });
 
-// let User: GraphQLObjectType;
 const User = new GraphQLObjectType({
   name: 'User',
-  fields: {
+  fields: () => ({
     id: {
       type: new GraphQLNonNull(UUIDType),
     },
@@ -54,5 +53,11 @@ const User = new GraphQLObjectType({
         return route.userSubscribedTo;
       },
     },
-  },
+    subscribedToUser: {
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(User))),
+      resolve: (route) => {
+        return route.subscribedToUser;
+      },
+    },
+  }),
 });
