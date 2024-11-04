@@ -11,8 +11,11 @@ import {
   CreateProfileInput,
   CreateUserInput,
 } from './createInputs.js';
+import { Context } from './context.js';
 
-export const RootQueryType = new GraphQLObjectType({
+type RootType = Record<string, never>;
+
+export const RootQueryType = new GraphQLObjectType<RootType, Context>({
   name: 'RootQueryType',
   fields: {
     memberTypes: {
@@ -56,7 +59,7 @@ export const RootQueryType = new GraphQLObjectType({
   },
 });
 
-export const Mutations = new GraphQLObjectType({
+export const Mutations = new GraphQLObjectType<RootType, Context>({
   name: 'Mutations',
   fields: () => ({
     createUser: {

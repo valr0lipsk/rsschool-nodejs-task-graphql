@@ -8,10 +8,28 @@ import {
   GraphQLList,
 } from 'graphql';
 import { UUIDType } from './uuid.js';
-import { MemberType } from './memberType.js';
-import { Post } from './post.js';
+import { MemberType, MemberTypeData } from './memberType.js';
+import { Post, PostType } from './post.js';
+import { Context } from './context.js';
 
-export const Profile = new GraphQLObjectType({
+type ProfileType = {
+  id: string;
+  isMale: boolean;
+  yearOfBirth: number;
+  memberType: MemberTypeData;
+};
+
+type UserType = {
+  id: string;
+  name: string;
+  balance: number;
+  profile?: ProfileType;
+  posts?: PostType[];
+  userSubscribedTo?: UserType[];
+  subscribedToUser?: UserType[];
+};
+
+export const Profile = new GraphQLObjectType<ProfileType, Context>({
   name: 'Profile',
   fields: {
     id: {
@@ -29,7 +47,7 @@ export const Profile = new GraphQLObjectType({
   },
 });
 
-export const User = new GraphQLObjectType({
+export const User = new GraphQLObjectType<UserType, Context>({
   name: 'User',
   fields: () => ({
     id: {

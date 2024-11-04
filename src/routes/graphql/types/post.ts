@@ -1,7 +1,15 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
 import { UUIDType } from './uuid.js';
+import { Context } from './context.js';
 
-export const Post = new GraphQLObjectType({
+export type PostType = {
+  id: string;
+  title: string;
+  content: string;
+  authorId: string;
+};
+
+export const Post = new GraphQLObjectType<PostType, Context>({
   name: 'Post',
   fields: {
     id: {

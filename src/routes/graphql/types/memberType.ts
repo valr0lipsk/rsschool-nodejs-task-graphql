@@ -5,6 +5,15 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
 } from 'graphql';
+import { Context } from './context.js';
+
+export type MemberTypeId = 'BASIC' | 'BUSINESS';
+
+export type MemberTypeData = {
+  id: MemberTypeId;
+  discount: number;
+  postsLimitPerMonth: number;
+};
 
 export const MemberTypeEnum = new GraphQLEnumType({
   name: 'MemberTypeId',
@@ -18,7 +27,7 @@ export const MemberTypeEnum = new GraphQLEnumType({
   },
 });
 
-export const MemberType = new GraphQLObjectType({
+export const MemberType = new GraphQLObjectType<MemberTypeData, Context>({
   name: 'MemberType',
   fields: {
     id: {
