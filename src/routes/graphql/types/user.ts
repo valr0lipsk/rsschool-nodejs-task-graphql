@@ -29,7 +29,7 @@ export const Profile = new GraphQLObjectType({
   },
 });
 
-const User = new GraphQLObjectType({
+export const User = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: {
